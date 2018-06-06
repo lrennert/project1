@@ -1,0 +1,11 @@
+form {
+    border: solid 10px black;
+    background-color: Window;
+    font-family: none;
+    box-shadow: none;
+}
+
+h1 {
+    color: black;
+    text-shadow: none;
+}

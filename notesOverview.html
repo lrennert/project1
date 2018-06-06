@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Note Pro
+    </title>
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" type="text/css" href="notes.css">
+    <link rel="stylesheet" type="text/css" href="defaultColors.css" id="currentCss">
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 50px 350px 50px;
+        }
+
+        header {
+            grid-column: span 12;
+        }
+
+        header {
+            display: flex;
+        }
+
+        .splitter {
+            margin-left: auto;
+        }
+
+        /*aside {*/
+        /*grid-column: span 2;*/
+        /*}*/
+
+        /*main {*/
+        /*grid-column: span 10;*/
+        /*}*/
+
+        footer {
+            grid-column: span 12;
+        }
+
+
+    </style>
+</head>
+<body>
+<form method="post" action="">
+    <header>
+        <h1>
+            Note Pro
+        </h1>
+    </header>
+    <div class="container">
+        <header class="functions">
+            <a href="createNewNote.html">Create new note</a>
+            <select id="style" name="style" class="splitter">
+                <option value="defaultColors" selected>Default-Style</option>
+                <option value="bwColors">BlackWhite-Style</option>
+            </select>
+        </header>
+        <header class="sortFields">
+            <div>
+                <button type="sort" id="sortByFinishDate">By Finish Date</button>
+            </div>
+            <div>
+                <button type="sort" id="sortByCreateDate">By Create Date</button>
+            </div>
+            <div>
+                <button type="sort" id="sortByImportance">By Importance</button>
+            </div>
+            <div class="splitter">
+                <button type="filter" id="finished">Show Finished</button>
+            </div>
+        </header>
+        <!--<aside>By Finish Date</aside>-->
+        <!--<main>By Create Date</main>-->
+        <!--<main>By Importance</main>-->
+        <!--<main>Show Finished</main>-->
+        <footer>
+            <div>Anzahl Notizen:</div>
+            <div id="numberOfNotes"></div>
+        </footer>
+    </div>
+</form>
+<script src="jquery-3.3.1.js"></script>
+<script src="notes-overview.js"></script>
+</body>
+</html>

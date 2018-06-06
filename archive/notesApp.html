@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Note Pro
+    </title>
+    <link rel="stylesheet" href="../normalize.css">
+    <link rel="stylesheet" href="alphabetStyling.css">
+    <style>
+        body {
+            /*0*/
+            max-width: 70em;
+            margin: 0 auto;
+        }
+
+        .articles {
+            /*1*/
+            display: grid;
+            /*2*/
+            /*grid-template-columns: 7em 20% 1fr 1fr;*/
+
+            /*3*/
+            /*grid-template-columns: 50px 20% 20vH 1fr 1fr;*/
+            /* px-sized cells can cut off text.
+               xfr cells do not get smaller than the longest word
+               (not all xfr cells are always same-sized)
+               -> see long D words */
+            /*4*/
+            grid-template-columns: 100px auto 20vH 1fr 1fr;
+            /* auto gives up space to over-long fr cells */
+            /*4*/
+            /*grid-template-columns: auto 7em 1fr minmax(2em, 20em) 1fr;*/
+            /*5*/
+            grid-template-rows: repeat(3, 1fr);
+
+        }
+    </style>
+</head>
+<body>
+<form method="post" action="http://localhost:5001/my-handling-form-page">
+    <header>
+        <h1>
+            Create new Note
+        </h1>
+    </header>
+    <section class="sortFields">
+        <article id="artA">
+            <h3>By finish Date</h3>
+            <p>A ist the first letter of the alphabet.</p>
+        </article>
+        <article id="artB">
+            <h3>By created Date</h3>
+            <p>B ist the second letter of the alphabet.</p>
+            <p>Many interesting words start with B. For example:</p>
+        </article>
+        <article id="artC">
+            <h3>By Importance</h3>
+            <p>C ist the third letter of the alphabet.</p>
+        </article>
+        <article id="artD">
+            <h3></h3>
+            <p></p>
+        </article>
+        <article id="artE">
+            <h3>Show finished</h3>
+            <p>E ist the fifth letter of the alphabet.</p>
+        </article>
+        <!--<article id="artF">-->
+        <!--<h3>Article F</h3>-->
+        <!--<p>F ist the sixth letter of the alphabet.</p>-->
+        <!--<p>Many interesting words start with F. For example:</p>-->
+        <!--<ul>-->
+        <!--<li>Fox</li>-->
+        <!--<li>Fan</li>-->
+        <!--<li>Funk</li>-->
+        <!--<li>Folk</li>-->
+        <!--<li>Flaw</li>-->
+        <!--<li>Frog</li>-->
+        <!--<li>Flag</li>-->
+        <!--<li>Farm</li>-->
+        <!--<li>Fall</li>-->
+        <!--<li>Featherweight</li>-->
+        <!--<li>Ferromagnetism</li>-->
+        <!--<li>Forethoughtfulness</li>-->
+        <!--</ul>-->
+        <!--</article>-->
+        <!--<article id="artG">-->
+        <!--<h3>Article G</h3>-->
+        <!--<p>G ist the seventh letter of the alphabet.</p>-->
+        <!--</article>-->
+        <!--<article id="artH">-->
+        <!--<h3>Article H</h3>-->
+        <!--<p>H ist the eighth letter of the alphabet.</p>-->
+        <!--</article>-->
+        <!--<article id="artI">-->
+        <!--<h3>Article I</h3>-->
+        <!--<p>I ist the nineth letter of the alphabet.</p>-->
+        <!--</article>-->
+        <!--<article id="artJ">-->
+        <!--<h3>Article J</h3>-->
+        <!--<p>J ist the tenth letter of the alphabet.</p>-->
+        <!--</article>-->
+    </section>
+</form>
+</body>
+</html>

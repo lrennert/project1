@@ -1,0 +1,11 @@
+form {
+    border: solid 10px green;
+    background-color: MintCream;
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+    box-shadow: 5px 5px rgba(0,0,0,0.5);
+}
+
+h1 {
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 1em green, 0 0 0.2em green;
+}
