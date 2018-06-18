@@ -5,83 +5,78 @@
     <title>
         Note Pro
     </title>
-    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="lib/normalize.css">
     <link rel="stylesheet" type="text/css" href="notes.css">
-    <link rel="stylesheet" type="text/css" href="defaultColors.css" id="currentCss">
-    <style>
-        .container {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: 50px 350px 50px;
-        }
-
-        header {
-            grid-column: span 12;
-        }
-
-        header {
-            display: flex;
-        }
-
-        .splitter {
-            margin-left: auto;
-        }
-
-        /*aside {*/
-        /*grid-column: span 2;*/
-        /*}*/
-
-        /*main {*/
-        /*grid-column: span 10;*/
-        /*}*/
-
-        footer {
-            grid-column: span 12;
-        }
-
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="colorsDefault.css" id="currentCss">
+    <link rel="icon" href="images/favicon.ico">
 </head>
 <body>
-<form method="post" action="">
+<form>
     <header>
         <h1>
             Note Pro
         </h1>
     </header>
+
     <div class="container">
-        <header class="functions">
-            <a href="createNewNote.html">Create new note</a>
-            <select id="style" name="style" class="splitter">
-                <option value="defaultColors" selected>Default-Style</option>
-                <option value="bwColors">BlackWhite-Style</option>
+
+        <header class="newNoteContainer">
+            <div>
+                <a href="createNewNote.html"><img src="images/note.png" alt="Create new note" id="noteImage"></a>
+                <a href="createNewNote.html" class="newNoteLink">Create new note</a>
+            </div>
+            <select id="styleSelect">
+                <option value="colorsDefault" selected>Default-Style</option>
+                <option value="colorsBlackWhite">BlackWhite-Style</option>
             </select>
         </header>
-        <header class="sortFields">
+
+        <header class="sortContainer">
             <div>
-                <button type="sort" id="sortByFinishDate">By Finish Date</button>
+                <button type="submit" id="sortByFinishDate">By Finish Date</button>
+                <button type="submit" id="sortByCreateDate">By Create Date</button>
+                <button type="submit" id="sortByImportance">By Importance</button>
             </div>
             <div>
-                <button type="sort" id="sortByCreateDate">By Create Date</button>
-            </div>
-            <div>
-                <button type="sort" id="sortByImportance">By Importance</button>
-            </div>
-            <div class="splitter">
-                <button type="filter" id="finished">Show Finished</button>
+                <button type="submit" id="finishedButton">Show Finished</button>
             </div>
         </header>
-        <!--<aside>By Finish Date</aside>-->
-        <!--<main>By Create Date</main>-->
-        <!--<main>By Importance</main>-->
-        <!--<main>Show Finished</main>-->
+
+        <main></main>
+
         <footer>
-            <div>Anzahl Notizen:</div>
-            <div id="numberOfNotes"></div>
+            <small>Number of Notes:</small>
+            <small id="numberOfNotes"></small>
+            <button type="submit" id="deleteAllButton">Delete All</button>
         </footer>
     </div>
 </form>
-<script src="jquery-3.3.1.js"></script>
+
+<script src="lib/jquery-3.3.1.js"></script>
+<script src="lib/handlebars-v4.0.11.js"></script>
 <script src="notes-overview.js"></script>
+<script id="noteTemplateText" type="text/x-handlebars-template">
+    {{#each notes}}
+    <div class="noteEntry">
+
+        <div class="noteLine">
+            <p class="col1">{{dueDate}}</p>
+            <p class="col2">{{title}}</p>
+            <p class="col3"> Importance: {{importance}}</p>
+        </div>
+
+        <div class="noteLine">
+            <div class="col1">
+                <input type="checkbox" id="finished" value="finished">
+                <label for="finished">Finished</label>
+            </div>
+            <p class="col2 description">{{description}}</p>
+            <div class="col3 edit"><button type="submit" id="editButton">Edit</button></div>
+        </div>
+
+    </div>
+    {{/each}}
+</script>
+
 </body>
 </html>

@@ -2,71 +2,71 @@
 
 ;$(function () {
 
-    $(document).ready(function () {
 
-        //setStyleSheet(CSS aus localStorage?);
+    //---------------------
+    // Initialize due date
+    //---------------------
+    $("#dueDate").val(new Date().toDateInputValue());
 
-        //------------------------------
-        // enable/disable submit button
-        //------------------------------
-        disableSubmitButton();
+    //------------------
+    // Initialize style
+    //------------------
+    const cssFileExtension = ".css";
+    const storedStyle = localStorage.getItem("style");
 
-        let $input = $(document.querySelectorAll("#title, #description"));
+    if (storedStyle !== null) {
+        $("#currentCss").attr("href", storedStyle + cssFileExtension);
+        $("#styleSelect").val(storedStyle);
+    }
 
-        $input.blur(function () {
-            $(document.getElementById("title")).val().length === 0 && $(document.getElementById("description")).val().length === 0 ?
-                disableSubmitButton() : enableSubmitButton();
-        });
+    //--------
+    // submit
+    //--------
+    $("#submitButton").click(function () {
 
+        if ($("form")[0].checkValidity()) {
 
-        //--------
-        // submit
-        //--------
-        $(document.getElementById("submitButton")).click(function () {
+            const noteData = localStorage.getItem("notes");
+            const noteArray = jQuery.isEmptyObject(JSON.parse(noteData)) ? [] :
+                JSON.parse(noteData).notes;
+            console.log("notes before push = " + noteArray.length);
 
-            let notes = localStorage.getItem("notes");
-            notes = JSON.parse(notes) || [];
-            console.log("notes before push = " + notes.length);
-
-            notes.push(
+            noteArray.push(
                 {
-                    "id": notes.length + 1,
-                    "title": $(document.getElementById("title")).val(),
-                    "description": $(document.getElementById("description")).val(),
-                    "importance": $(document.getElementById("importance")).val(),
-                    "dueDate": $(document.getElementById("dueDate")).val(),
+                    "id": noteArray.length + 1,
+                    "title": $("#title").val(),
+                    "description": $("#description").val(),
+                    "importance": $("#importance").val(),
+                    "dueDate": $("#dueDate").val(),
                     "finished": false
                 }
             );
 
-            console.log("notes after push = " + notes.length);
+            console.log("notes after push = " + noteArray.length);
 
-            for (let i in notes){
-                console.log("i=" + i + ", id=" + notes[i].id + ", title=" + notes[i].title);
+            for (let i in noteArray) {
+                console.log("i=" + i + ", id=" + noteArray[i].id + ", title=" + noteArray[i].title);
             }
 
-            localStorage.setItem("notes", JSON.stringify(notes));
+            localStorage.setItem("notes", JSON.stringify({notes: noteArray}));
             window.location.href = "notesOverview.html";
             return false;
-        });
 
-
-        //--------
-        // cancel
-        //--------
-        $(document.getElementById("cancelButton")).click(function () {
-            window.location.href = "notesOverview.html";
-        });
-
+        }
     });
 
-    function disableSubmitButton() {
-        document.getElementById("submitButton").disabled = true;
-    }
+    //--------
+    // cancel
+    //--------
+    $("#cancelButton").click(function () {
+        window.location.href = "notesOverview.html";
+    });
 
-    function enableSubmitButton() {
-        document.getElementById("submitButton").disabled = false;
-    }
+});
 
-
+Date.prototype.toDateInputValue = (function () {
+    const local = new Date(this);
+    local.setDate(local.getDate() + 10);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0, 10);
 });

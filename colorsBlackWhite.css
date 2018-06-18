@@ -1,8 +1,8 @@
 form {
     border: solid 10px black;
-    background-color: Window;
-    font-family: none;
-    box-shadow: none;
+    background-color: initial;
+    font-family: sans-serif;
+    box-shadow: initial;
 }
 
 h1 {

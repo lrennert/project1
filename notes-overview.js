@@ -1,32 +1,64 @@
 "use strict";
 
+
 ;$(function () {
 
-    // localStorage.clear();
+    //------------------
+    // Initialize style
+    //------------------
+    const cssFileExtension = ".css";
+    const storedStyle = localStorage.getItem("style");
+    if (storedStyle !== null) {
+        $("#currentCss").attr("href", storedStyle + cssFileExtension);
+        $("#styleSelect").val(storedStyle);
+    }
 
-    $(document).ready(function () {
-
-        // document.getElementById("numberOfNotes").innerHTML = getNumberOfNotes();
-
-        $("#numberOfNotes").html(getNumberOfNotes());
-
-        function getNumberOfNotes() {
-            let notes = localStorage.getItem("notes");
-            notes = JSON.parse(notes) || [];
-            return notes.length;
-        }
-
-        $("#style").change(function () {
-            setStyleSheet($(document.getElementById("style")).val());
-        });
-
-        function setStyleSheet(newCss) {
-            const cssfileExtension = ".css";
-            console.log("newCss = " + newCss);
-            document.getElementById("currentCss").href = newCss + cssfileExtension;
-        }
-
+    //----------------
+    // Style Switcher
+    //----------------
+    $("#styleSelect").change(function () {
+        const selectedStyle = $("#styleSelect").val();
+        $("#currentCss").attr("href", selectedStyle + cssFileExtension);
+        localStorage.setItem("style", selectedStyle);
     });
+
+    //--------
+    // Footer
+    //--------
+
+    const numberOfNotes = getNumberOfNotes();
+    const deleteAllButton = $("#deleteAllButton");
+
+    $("#numberOfNotes").html(numberOfNotes);
+    deleteAllButton.prop("disabled", numberOfNotes === 0);
+
+    deleteAllButton.click(function () {
+        localStorage.clear();
+    });
+
+    if(numberOfNotes === 0) {
+        $(".sortContainer").hide();
+    }
+
+    //------------
+    // Handlebars
+    //------------
+
+    const noteData = getNoteData();
+    const noteTemplateText = $("#noteTemplateText").html();
+    const createNotesHTML = Handlebars.compile(noteTemplateText);
+    $("main").html(createNotesHTML(noteData));
+
 });
+
+function getNoteData() {
+    const noteData = localStorage.getItem("notes");
+    return JSON.parse(noteData);
+}
+
+function getNumberOfNotes() {
+    return jQuery.isEmptyObject(getNoteData()) ? 0 :
+        getNoteData().notes.length;
+}
 
 
