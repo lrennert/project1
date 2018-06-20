@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Note Pro
+    </title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/lib/normalize.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/notes.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/colorsDefault.css" id="currentCss">
+    <link rel="icon" href="favicon.ico">
+</head>
+<body>
+<form>
+    <header>
+        <h1>
+            Note Pro
+        </h1>
+    </header>
+
+    <div class="container">
+
+        <header class="newNoteContainer">
+            <div>
+                <a href="createNewNote.html"><img src="images/note.png" alt="Create new note" id="noteImage"></a>
+                <a href="createNewNote.html" class="newNoteLink">Create new note</a>
+            </div>
+            <select id="styleSelect">
+                <option value="colorsDefault" selected>Default-Style</option>
+                <option value="colorsBlackWhite">BlackWhite-Style</option>
+            </select>
+        </header>
+
+        <header class="sortContainer">
+            <div>
+                <button type="submit" id="sortByFinishDate">By Finish Date</button>
+                <button type="submit" id="sortByCreateDate">By Create Date</button>
+                <button type="submit" id="sortByImportance">By Importance</button>
+            </div>
+            <div>
+                <button type="submit" id="finishedButton">Show Finished</button>
+            </div>
+        </header>
+
+        <main><div class="noteContainer"></div></main>
+
+        <footer>
+            <small>Number of Notes:</small>
+            <small id="numberOfNotes"></small>
+            <button type="submit" id="deleteAllButton">Delete All</button>
+        </footer>
+    </div>
+</form>
+
+<script id="noteTemplateText" type="text/x-handlebars-template">
+
+    {{#each notes}}
+        <div class="noteLine">
+            <p class="col1">{{dueDate}}</p>
+            <p class="col2">{{title}}</p>
+            <p class="col3"> Importance: {{importance}}</p>
+        </div>
+
+        <div class="noteLine">
+            <div class="col1">
+                <input type="checkbox" id="finished" value="finished">
+                <label for="finished">Finished</label>
+            </div>
+            <p class="col2 description">{{description}}</p>
+            <div class="col3 editButtonContainer">
+                <button type="submit" id="editButton">Edit</button>
+            </div>
+        </div>
+    {{/each}}
+
+</script>
+
+<script src="javascripts/lib/jquery-3.3.1.js"></script>
+<script src="javascripts/lib/handlebars-v4.0.11.js"></script>
+<script src="javascripts/services/notes-overview.js"></script>
+
+</body>
+</html>
