@@ -3657,7 +3657,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /* istanbul ignore next */
 	    if (this.stackSlot || this.inlineStack.length || this.compileStack.length) {
-	      throw new _exception2['default']('Compile completed with content left on stack');
+	      throw new _exception2['default']('Compile done with content left on stack');
 	    }
 
 	    if (!this.decorators.isEmpty()) {

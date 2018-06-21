@@ -33,16 +33,16 @@
 
         <header class="sortContainer">
             <div>
-                <button type="submit" id="sortByFinishDate">By Finish Date</button>
-                <button type="submit" id="sortByCreateDate">By Create Date</button>
+                <button type="submit" id="sortByDueDate">By Due Date</button>
                 <button type="submit" id="sortByImportance">By Importance</button>
             </div>
             <div>
-                <button type="submit" id="finishedButton">Show Finished</button>
+                <button type="submit" id="showHideFinishedButton">Hide Finished</button>
+                <button type="submit" id="showAllButton">Show All</button>
             </div>
         </header>
 
-        <main><div class="noteContainer"></div></main>
+        <main></main>
 
         <footer>
             <small>Number of Notes:</small>
@@ -55,6 +55,7 @@
 <script id="noteTemplateText" type="text/x-handlebars-template">
 
     {{#each notes}}
+    <div class="noteContainer">
         <div class="noteLine">
             <p class="col1">{{dueDate}}</p>
             <p class="col2">{{title}}</p>
@@ -63,7 +64,7 @@
 
         <div class="noteLine">
             <div class="col1">
-                <input type="checkbox" id="finished" value="finished">
+                <input type="checkbox" id="finished">
                 <label for="finished">Finished</label>
             </div>
             <p class="col2 description">{{description}}</p>
@@ -71,13 +72,14 @@
                 <button type="submit" id="editButton">Edit</button>
             </div>
         </div>
+    </div>
     {{/each}}
 
 </script>
 
 <script src="javascripts/lib/jquery-3.3.1.js"></script>
 <script src="javascripts/lib/handlebars-v4.0.11.js"></script>
-<script src="javascripts/services/notes-overview.js"></script>
+<script src="javascripts/controllers/notes-overview.js"></script>
 
 </body>
 </html>

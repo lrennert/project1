@@ -47,7 +47,7 @@
     const noteData = getNoteData();
     const noteTemplateText = $("#noteTemplateText").html();
     const createNotesHTML = Handlebars.compile(noteTemplateText);
-    $(".noteContainer").html(createNotesHTML(noteData));
+    $("main").html(createNotesHTML(noteData));
 
 });
 

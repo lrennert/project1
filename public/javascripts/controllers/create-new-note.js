@@ -25,7 +25,6 @@
             const noteData = localStorage.getItem("notes");
             const noteArray = jQuery.isEmptyObject(JSON.parse(noteData)) ? [] :
                 JSON.parse(noteData).notes;
-            console.log("notes before push = " + noteArray.length);
 
             noteArray.push(
                 {
@@ -37,12 +36,6 @@
                     "finished": false
                 }
             );
-
-            console.log("notes after push = " + noteArray.length);
-
-            for (let i in noteArray) {
-                console.log("i=" + i + ", id=" + noteArray[i].id + ", title=" + noteArray[i].title);
-            }
 
             localStorage.setItem("notes", JSON.stringify({notes: noteArray}));
             window.location.href = "notesOverview.html";
