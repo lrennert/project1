@@ -4,7 +4,7 @@ import {noteController} from '../controllers/noteController';
 const router = express.Router();
 
 router.get("/", function(req, res) {
-    res.redirect("/notes");
+    res.redirect("/notesOverview.html");
 });
 
 router.get("/notes", noteController.getNotes.bind(noteController));
