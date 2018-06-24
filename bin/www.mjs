@@ -4,9 +4,9 @@
  * Module dependencies.
  */
 
-const app = require('../app');
-const debug = require('debug')('project1:server');
-const http = require('http');
+import app from '../app';
+import Debug from 'debug';
+import http from 'http';
 
 /**
  * Get port from environment and store in Express.
@@ -82,9 +82,11 @@ function onError(error) {
  */
 
 function onListening() {
+  const debug = Debug('project1:server');
   const addr = server.address();
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log(`Server running at http://localhost:${port}/`);
 }

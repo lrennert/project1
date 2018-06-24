@@ -7,13 +7,13 @@
     //------------
     $("#dueDate").val(new Date().toDateInputValue());
 
-    // const cssFileExtension = ".css";
-    // const storedStyle = localStorage.getItem("style");
-    //
-    // if (storedStyle !== null) {
-    //     $("#currentCss").attr("href", storedStyle + cssFileExtension);
-    //     $("#styleSelect").val(storedStyle);
-    // }
+    const cssFileExtension = ".css";
+    const storedStyle = localStorage.getItem("style");
+
+    if (storedStyle !== null) {
+        $("#currentCss").attr("href", storedStyle + cssFileExtension);
+        $("#styleSelect").val(storedStyle);
+    }
 
     //--------
     // submit

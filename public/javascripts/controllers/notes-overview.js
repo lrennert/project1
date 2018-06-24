@@ -3,15 +3,15 @@
 
 ;$(function () {
 
-    // //------------------
-    // // Initialize style
-    // //------------------
-    // const cssFileExtension = ".css";
-    // const storedStyle = localStorage.getItem("style");
-    // if (storedStyle !== null) {
-    //     $("#currentCss").attr("href", storedStyle + cssFileExtension);
-    //     $("#styleSelect").val(storedStyle);
-    // }
+    //------------------
+    // Initialize style
+    //------------------
+    const cssFileExtension = ".css";
+    const storedStyle = localStorage.getItem("style");
+    if (storedStyle !== null) {
+        $("#currentCss").attr("href", storedStyle + cssFileExtension);
+        $("#styleSelect").val(storedStyle);
+    }
 
     //----------------
     // Style Switcher
