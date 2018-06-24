@@ -2,8 +2,8 @@
     console.log('rest-client');
     const ajaxUtil = window.util.ajax;
 
-    function getNotes(orderBy, filterBy) {
-        return ajaxUtil.ajax("GET", `/notes?filterBy=${filterBy}&orderBy=${orderBy}`, undefined);
+    function getNotes(filterBy, sortBy) {
+        return ajaxUtil.ajax("GET", `/notes?filterBy=${filterBy}&sortBy=${sortBy}`, undefined);
     }
 
     function getNoteById(id) {

@@ -3,7 +3,7 @@ import {noteStore} from '../services/noteStore'
 export class NoteController {
 
     async getNotes(req, res) {
-        res.json(await noteStore.all(req.query.filterBy, req.query.orderBy));
+        res.json(await noteStore.all(req.query.filterBy, req.query.sortBy));
     };
 
     async getNote(req, res) {

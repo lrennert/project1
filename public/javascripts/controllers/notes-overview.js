@@ -1,65 +1,91 @@
 "use strict";
 
-
 ;$(function () {
 
+    let filterBy;
+    let sortBy;
+
     //------------------
-    // Initialize style
+    // Style Switcher
     //------------------
-    const cssFileExtension = ".css";
     const storedStyle = localStorage.getItem("style");
+    const styleDropdown =  $("#styleSelect");
     if (storedStyle !== null) {
-        $("#currentCss").attr("href", 'stylesheets/' + storedStyle + cssFileExtension);
-        $("#styleSelect").val(storedStyle);
+        setStyle(storedStyle);
+        styleDropdown.val(storedStyle);
     }
 
-    //----------------
-    // Style Switcher
-    //----------------
-    $("#styleSelect").change(function () {
+    styleDropdown.change(function () {
         const selectedStyle = $("#styleSelect").val();
-        $("#currentCss").attr("href", 'stylesheets/' + selectedStyle + cssFileExtension);
+        setStyle(selectedStyle);
         localStorage.setItem("style", selectedStyle);
     });
 
-    //--------
-    // Footer
-    //--------
+    function setStyle(style){
+        $("#currentCss").attr("href", `stylesheets/${style}.css`);
+    }
 
-    const noteData = getNoteData();
-    const deleteAllButton = $("#deleteAllButton");
 
-    getNumberOfNotes(noteData).done(function(numberOfNotes) {
-        $("#numberOfNotes").html(numberOfNotes);
-    });
-
-    deleteAllButton.prop("disabled", numberOfNotes === 0);
-
-    deleteAllButton.click(function () {
-        localStorage.clear();
-    });
-
-    if(numberOfNotes === 0) {
+    //--------------
+    // Sort Buttons
+    //--------------
+    let noteData = getNoteData();
+    if(getNumberOfNotes(noteData) === 0) {
         $(".sortContainer").hide();
     }
+
+
+    $("#sortByDueDate").click(function () {
+        sort("dueDate");
+    });
+
+    $("#sortByImportance").click(function () {
+        sort("importance");
+        // filterBy = null;
+        // sortBy = "importance";
+        // noteData = getNoteData(filterBy, sortBy);
+        // noteData.done(function(data) {
+        //     $("main").html(createNotesHTML(data));
+        // });
+    });
+
+    function sort(sortBy) {
+        noteData = getNoteData(null, sortBy);
+        noteData.done(function(data) {
+            $("main").html(createNotesHTML(data));
+        });
+    }
+
 
     //------------
     // Handlebars
     //------------
-
     const noteTemplateText = $("#noteTemplateText").html();
     const createNotesHTML = Handlebars.compile(noteTemplateText);
     noteData.done(function(data) {
         $("main").html(createNotesHTML(data));
     });
 
+
+    //--------
+    // Footer
+    //--------
+    getNumberOfNotes(noteData).done(function(numberOfNotes) {
+        $("#numberOfNotes").html(numberOfNotes);
+    });
+
+    const deleteAllButton = $("#deleteAllButton");
+    deleteAllButton.prop("disabled", getNumberOfNotes(noteData) === 0);
+    deleteAllButton.click(function () {
+        localStorage.clear();
+    });
+
 });
 
-function getNoteData() {
-    const result = window.services.restClient.getNotes(null, null);
-    console.log(result);
-    console.log(result.responseText);
-    return result;
+
+
+function getNoteData(filterBy, sortBy) {
+    return window.services.restClient.getNotes(filterBy, sortBy);
 }
 
 function getNumberOfNotes(noteData) {

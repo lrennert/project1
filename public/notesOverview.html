@@ -11,7 +11,7 @@
     <link rel="icon" href="favicon.ico">
 </head>
 <body>
-<form>
+<div class="form">
     <header>
         <h1>
             Note Pro
@@ -20,7 +20,7 @@
 
     <div class="container">
 
-        <header class="newNoteContainer">
+        <header class="createNewNoteContainer">
             <div>
                 <a href="createNewNote.html"><img src="images/note.png" alt="Create new note" id="noteImage"></a>
                 <a href="createNewNote.html" class="newNoteLink">Create new note</a>
@@ -38,7 +38,7 @@
                 <button type="submit" id="sortByImportance">By Importance</button>
             </div>
             <div>
-                <button type="submit" id="showHideFinishedButton">Hide Finished</button>
+                <button type="submit" id="showOpenButton">Show Open</button>
                 <button type="submit" id="showAllButton">Show All</button>
             </div>
         </header>
@@ -51,7 +51,7 @@
             <button type="submit" id="deleteAllButton">Delete All</button>
         </footer>
     </div>
-</form>
+</div>
 
 <script id="noteTemplateText" type="text/x-handlebars-template">
 

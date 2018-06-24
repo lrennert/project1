@@ -45,27 +45,35 @@ export class NoteStore {
         return await this.db.cfindOne({_id: id});
     }
 
-    async all(filterBy, orderBy) {
-        // return await this.db.cfind(getFilterTerm()).sort(getSortTerm()).exec();
-        return { notes: await this.db.cfind({}).sort({}).exec() };
+    async all(filterBy, sortBy) {
 
+        return {notes: await this.db.cfind(getFilterTerm()).sort(getSortTerm()).exec()};
 
         function getFilterTerm() {
+            const filterTerm = {};
             switch (filterBy) {
                 case "state":
-                    return "{state: 'open'}";
+                    filterTerm["state"] = "open";
+                    break;
                 default:
-                    return "{}";
+                    break;
             }
+            return filterTerm;
         }
 
         function getSortTerm() {
-            switch (orderBy) {
+            const sortTerm = {};
+            switch (sortBy) {
                 case "importance":
-                    return "{importance: -1, dueDate: 1}";
+                    sortTerm["importance"] = -1;
+                    sortTerm["dueDate"] = 1;
+                    break;
                 default:
-                    return "{dueDate: 1, importance: -1}";
+                    sortTerm["dueDate"] = 1;
+                    sortTerm["importance"] = -1;
+                    break;
             }
+            return sortTerm;
         }
     }
 

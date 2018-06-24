@@ -1,9 +1,8 @@
 ;(function (util, $) {
-    function ajax(method, url, data /*headers*/) {
+    function ajax(method, url, data) {
         return $.ajax({
             dataType: "json",
             contentType: "application/json",
-            // headers: headers,
             method: method,
             url: url,
             data: data ? JSON.stringify(data) : undefined
