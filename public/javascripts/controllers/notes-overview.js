@@ -2,9 +2,6 @@
 
 ;$(function () {
 
-    let filterBy;
-    let sortBy;
-
     //------------------
     // Style Switcher
     //------------------
@@ -26,35 +23,39 @@
     }
 
 
-    //--------------
-    // Sort Buttons
-    //--------------
-    let noteData = getNoteData();
+    //---------------------------------
+    // Sort Buttons and Filter Buttons
+    //---------------------------------
+    let filterBy = null;
+    let sortBy = null;
+    let noteData = getNoteData(filterBy, sortBy);
+
     if(getNumberOfNotes(noteData) === 0) {
         $(".sortContainer").hide();
     }
 
 
     $("#sortByDueDate").click(function () {
-        sort("dueDate");
+        sortBy = "dueDate";
+        doQuery();
     });
 
     $("#sortByImportance").click(function () {
-        sort("importance");
-        // filterBy = null;
-        // sortBy = "importance";
-        // noteData = getNoteData(filterBy, sortBy);
-        // noteData.done(function(data) {
-        //     $("main").html(createNotesHTML(data));
-        // });
+        sortBy = "importance";
+        doQuery();
     });
 
-    function sort(sortBy) {
-        noteData = getNoteData(null, sortBy);
-        noteData.done(function(data) {
-            $("main").html(createNotesHTML(data));
-        });
-    }
+    $("#showOpenButton").click(function () {
+        filterBy = "open";
+        doQuery();
+        refreshFooter();
+    });
+
+    $("#showAllButton").click(function () {
+        filterBy = "all";
+        doQuery();
+        refreshFooter();
+    });
 
 
     //------------
@@ -66,6 +67,12 @@
         $("main").html(createNotesHTML(data));
     });
 
+    function doQuery() {
+        noteData = getNoteData(filterBy, sortBy);
+        noteData.done(function(data) {
+            $("main").html(createNotesHTML(data));
+        });
+    }
 
     //--------
     // Footer
@@ -79,6 +86,13 @@
     deleteAllButton.click(function () {
         localStorage.clear();
     });
+
+    function refreshFooter() {
+        getNumberOfNotes(noteData).done(function(numberOfNotes) {
+            $("#numberOfNotes").html(numberOfNotes);
+        });
+    }
+
 
 });
 

@@ -13,7 +13,7 @@ export class Note {
 
 export class NoteStore {
     constructor(db) {
-        this.db = db || new Datastore({filename: "./data/note.db", autoload: true});
+        this.db = db || new Datastore({filename: "../data/note.db", autoload: true});
     }
 
     async add(title, description, importance, dueDate) {
@@ -52,7 +52,7 @@ export class NoteStore {
         function getFilterTerm() {
             const filterTerm = {};
             switch (filterBy) {
-                case "state":
+                case "open":
                     filterTerm["state"] = "open";
                     break;
                 default:
