@@ -46,8 +46,9 @@ export class NoteStore {
     }
 
     async all(filterBy, orderBy) {
+        // return await this.db.cfind(getFilterTerm()).sort(getSortTerm()).exec();
+        return { notes: await this.db.cfind({}).sort({}).exec() };
 
-        return await this.db.cfind(getFilterTerm()).sort(getSortTerm()).exec();
 
         function getFilterTerm() {
             switch (filterBy) {

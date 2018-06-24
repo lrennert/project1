@@ -11,7 +11,7 @@
     const storedStyle = localStorage.getItem("style");
 
     if (storedStyle !== null) {
-        $("#currentCss").attr("href", storedStyle + cssFileExtension);
+        $("#currentCss").attr("href", 'stylesheets/' + storedStyle + cssFileExtension);
         $("#styleSelect").val(storedStyle);
     }
 
@@ -22,22 +22,23 @@
 
         if ($("form")[0].checkValidity()) {
 
+            /*
             const noteData = localStorage.getItem("notes");
             const noteArray = jQuery.isEmptyObject(JSON.parse(noteData)) ? [] :
                 JSON.parse(noteData).notes;
+            */
 
-            noteArray.push(
-                {
-                    "id": noteArray.length + 1,
-                    "title": $("#title").val(),
-                    "description": $("#description").val(),
-                    "importance": $("#importance").val(),
-                    "dueDate": $("#dueDate").val(),
-                    "finished": false
-                }
-            );
+            const newNote = {
+                "title": $("#title").val(),
+                "description": $("#description").val(),
+                "importance": $("#importance").val(),
+                "dueDate": $("#dueDate").val()
+            };
 
-            localStorage.setItem("notes", JSON.stringify({notes: noteArray}));
+            // localStorage.setItem("notes", JSON.stringify({notes: noteArray}));
+            // window.location.href = "notesOverview.html";
+
+            window.services.restClient.addNote(newNote);
             window.location.href = "notesOverview.html";
             return false;
 

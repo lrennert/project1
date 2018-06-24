@@ -9,7 +9,7 @@
     const cssFileExtension = ".css";
     const storedStyle = localStorage.getItem("style");
     if (storedStyle !== null) {
-        $("#currentCss").attr("href", storedStyle + cssFileExtension);
+        $("#currentCss").attr("href", 'stylesheets/' + storedStyle + cssFileExtension);
         $("#styleSelect").val(storedStyle);
     }
 
@@ -18,7 +18,7 @@
     //----------------
     $("#styleSelect").change(function () {
         const selectedStyle = $("#styleSelect").val();
-        $("#currentCss").attr("href", selectedStyle + cssFileExtension);
+        $("#currentCss").attr("href", 'stylesheets/' + selectedStyle + cssFileExtension);
         localStorage.setItem("style", selectedStyle);
     });
 
@@ -26,10 +26,13 @@
     // Footer
     //--------
 
-    const numberOfNotes = getNumberOfNotes();
+    const noteData = getNoteData();
     const deleteAllButton = $("#deleteAllButton");
 
-    $("#numberOfNotes").html(numberOfNotes);
+    getNumberOfNotes(noteData).done(function(numberOfNotes) {
+        $("#numberOfNotes").html(numberOfNotes);
+    });
+
     deleteAllButton.prop("disabled", numberOfNotes === 0);
 
     deleteAllButton.click(function () {
@@ -44,21 +47,25 @@
     // Handlebars
     //------------
 
-    const noteData = getNoteData();
     const noteTemplateText = $("#noteTemplateText").html();
     const createNotesHTML = Handlebars.compile(noteTemplateText);
-    $("main").html(createNotesHTML(noteData));
+    noteData.done(function(data) {
+        $("main").html(createNotesHTML(data));
+    });
 
 });
 
 function getNoteData() {
-    const noteData = localStorage.getItem("notes");
-    return JSON.parse(noteData);
+    const result = window.services.restClient.getNotes(null, null);
+    console.log(result);
+    console.log(result.responseText);
+    return result;
 }
 
-function getNumberOfNotes() {
-    return jQuery.isEmptyObject(getNoteData()) ? 0 :
-        getNoteData().notes.length;
+function getNumberOfNotes(noteData) {
+    return noteData.then(function(data) {
+        return jQuery.isEmptyObject(data.notes) ? 0 : data.notes.length;
+    });
 }
 
 
