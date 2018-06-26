@@ -1,5 +1,5 @@
 ;(function(services, $) {
-    console.log('rest-client');
+
     const ajaxUtil = window.util.ajax;
 
     function getNotes(filterBy, sortBy) {

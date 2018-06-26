@@ -5,7 +5,6 @@
     //------------
     // Initialize
     //------------
-    $("#dueDate").val(new Date().toDateInputValue());
 
     const cssFileExtension = ".css";
     const storedStyle = localStorage.getItem("style");
@@ -15,18 +14,38 @@
         $("#styleSelect").val(storedStyle);
     }
 
+    const isEditMode = localStorage.hasOwnProperty("note");
+    let data;
+
+
+    //------------
+    // Handlebars
+    //------------
+    if (isEditMode) {
+        const noteString = localStorage.getItem("note");
+        data = JSON.parse(noteString);
+        data.note.isNewNote = false;
+        console.log(data);
+    } else {
+        data = {};
+        data.note = {};
+        data.note.isNewNote = true;
+        data.note.dueDate = new Date().toDateInputValue();
+        console.log(data);
+    }
+
+    const source = $("#edit-note-template").html();
+    const template = Handlebars.compile(source);
+    const html = template(data);
+    $("form").html(html);
+
+
     //--------
     // submit
     //--------
     $("#submitButton").click(function () {
 
         if ($("form")[0].checkValidity()) {
-
-            /*
-            const noteData = localStorage.getItem("notes");
-            const noteArray = jQuery.isEmptyObject(JSON.parse(noteData)) ? [] :
-                JSON.parse(noteData).notes;
-            */
 
             const newNote = {
                 "title": $("#title").val(),
@@ -35,24 +54,25 @@
                 "dueDate": $("#dueDate").val()
             };
 
-            // localStorage.setItem("notes", JSON.stringify({notes: noteArray}));
-            // window.location.href = "notesOverview.html";
-
             window.services.restClient.addNote(newNote);
             window.location.href = "notesOverview.html";
             return false;
-
         }
     });
+
 
     //--------
     // cancel
     //--------
     $("#cancelButton").click(function () {
         window.location.href = "notesOverview.html";
+        if (isEditMode) {
+            localStorage.removeItem("note");
+        }
     });
 
 });
+
 
 Date.prototype.toDateInputValue = (function () {
     const local = new Date(this);

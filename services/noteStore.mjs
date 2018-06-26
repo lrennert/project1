@@ -58,7 +58,7 @@ export class NoteStore {
             const filterTerm = {};
             switch (filterBy) {
                 case "open":
-                    filterTerm["state"] = "open";
+                    filterTerm.state = "open";
                     break;
                 default:
                     break;
@@ -70,12 +70,12 @@ export class NoteStore {
             const sortTerm = {};
             switch (sortBy) {
                 case "importance":
-                    sortTerm["importance"] = -1;
-                    sortTerm["dueDate"] = 1;
+                    sortTerm.importance = -1;
+                    sortTerm.dueDate = 1;
                     break;
                 default:
-                    sortTerm["dueDate"] = 1;
-                    sortTerm["importance"] = -1;
+                    sortTerm.dueDate = 1;
+                    sortTerm.importance = -1;
                     break;
             }
             return sortTerm;
