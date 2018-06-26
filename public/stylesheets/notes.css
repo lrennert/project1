@@ -1,6 +1,6 @@
 /* General settings */
 
-.form {
+.noteApp {
     width: 70%;
     margin: auto;
     padding: 20px;
@@ -70,10 +70,14 @@
     background-color: white;
     border: solid 1px lightgrey;
     padding: 8px;
-    max-height: 100px;
+    max-height: 200px;
     overflow: auto;
     font-size: 14px;
     -webkit-margin-before: 0;
+}
+
+.empty {
+    visibility: hidden;
 }
 
 #noteImage {

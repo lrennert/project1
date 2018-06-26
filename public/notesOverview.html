@@ -11,7 +11,7 @@
     <link rel="icon" href="favicon.ico">
 </head>
 <body>
-<div class="form">
+<div class="noteApp">
     <header>
         <h1>
             Note Pro
@@ -34,8 +34,8 @@
 
         <header class="sortContainer">
             <div>
-                <button type="submit" id="sortByDueDate">By Due Date</button>
-                <button type="submit" id="sortByImportance">By Importance</button>
+                <button type="submit" id="sortByDueDate">Sort By Due Date</button>
+                <button type="submit" id="sortByImportance">Sort By Importance</button>
             </div>
             <div>
                 <button type="submit" id="showOpenButton">Show Open</button>
@@ -74,7 +74,11 @@
                 <label for="finishedChecked">Finished</label>
                 {{/ifStateOpen}}
             </div>
+            {{#ifDescriptionExists description}}
             <p class="col2 description">{{description}}</p>
+            {{else}}
+            <p class="col2 description empty">{{description}}</p>
+            {{/ifDescriptionExists}}
             <div class="col3 editButtonContainer">
                 <button type="submit" id="editButton">Edit</button>
             </div>
