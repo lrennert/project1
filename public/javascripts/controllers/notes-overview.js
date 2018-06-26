@@ -2,11 +2,16 @@
 
 ;$(function () {
 
+    let filterBy = "open";
+    let sortBy = null;
+    let noteData = getNoteData(filterBy, sortBy);
+
+
     //------------------
     // Style Switcher
     //------------------
     const storedStyle = localStorage.getItem("style");
-    const styleDropdown =  $("#styleSelect");
+    const styleDropdown = $("#styleSelect");
     if (storedStyle !== null) {
         setStyle(storedStyle);
         styleDropdown.val(storedStyle);
@@ -18,7 +23,7 @@
         localStorage.setItem("style", selectedStyle);
     });
 
-    function setStyle(style){
+    function setStyle(style) {
         $("#currentCss").attr("href", `stylesheets/${style}.css`);
     }
 
@@ -26,11 +31,7 @@
     //---------------------------------
     // Sort Buttons and Filter Buttons
     //---------------------------------
-    let filterBy = null;
-    let sortBy = null;
-    let noteData = getNoteData(filterBy, sortBy);
-
-    if(getNumberOfNotes(noteData) === 0) {
+    if (getNumberOfNotes(noteData) === 0) {
         $(".sortContainer").hide();
     }
 
@@ -61,23 +62,36 @@
     //------------
     // Handlebars
     //------------
-    const noteTemplateText = $("#noteTemplateText").html();
-    const createNotesHTML = Handlebars.compile(noteTemplateText);
-    noteData.done(function(data) {
-        $("main").html(createNotesHTML(data));
+    const noteTemplate = $("#note-template").html();
+    const noteRenderer = Handlebars.compile(noteTemplate);
+    noteData.done(function (data) {
+        $(".noteContainer").html(noteRenderer(data));
     });
 
     function doQuery() {
         noteData = getNoteData(filterBy, sortBy);
-        noteData.done(function(data) {
-            $("main").html(createNotesHTML(data));
+        noteData.done(function (data) {
+            $(".noteContainer").html(noteRenderer(data));
         });
     }
+
+    $(".noteContainer").on("change", ".js-change", function (event) {
+        window.services.restClient.getNote($(event.currentTarget).data("id")).done(function (note) {
+            if ($(event.currentTarget).prop("checked")) {
+                note.state = "done";
+            }
+            else {
+                note.state = "open";
+            }
+            window.services.restClient.updateNote(note._id, note);
+        });
+    });
+
 
     //--------
     // Footer
     //--------
-    getNumberOfNotes(noteData).done(function(numberOfNotes) {
+    getNumberOfNotes(noteData).done(function (numberOfNotes) {
         $("#numberOfNotes").html(numberOfNotes);
     });
 
@@ -88,7 +102,7 @@
     });
 
     function refreshFooter() {
-        getNumberOfNotes(noteData).done(function(numberOfNotes) {
+        getNumberOfNotes(noteData).done(function (numberOfNotes) {
             $("#numberOfNotes").html(numberOfNotes);
         });
     }
@@ -97,13 +111,12 @@
 });
 
 
-
 function getNoteData(filterBy, sortBy) {
     return window.services.restClient.getNotes(filterBy, sortBy);
 }
 
 function getNumberOfNotes(noteData) {
-    return noteData.then(function(data) {
+    return noteData.then(function (data) {
         return jQuery.isEmptyObject(data.notes) ? 0 : data.notes.length;
     });
 }

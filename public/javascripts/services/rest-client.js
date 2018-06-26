@@ -14,13 +14,13 @@
         return ajaxUtil.ajax("POST", "/notes/", note);
     }
 
-    function updateNote(note) {
+    function updateNote(id, note) {
         return ajaxUtil.ajax("PUT", `/notes/${id}`, note);
     }
 
     services.restClient = {
         getNotes: getNotes,
-        getNoteById: getNoteById,
+        getNote: getNoteById,
         addNote: addNote,
         updateNote: updateNote
     };

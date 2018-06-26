@@ -12,14 +12,17 @@ export class Note {
 }
 
 export class NoteStore {
+
     constructor(db) {
         this.db = db || new Datastore({filename: "../data/note.db", autoload: true});
     }
+
 
     async add(title, description, importance, dueDate) {
         let note = new Note(title, description, importance, dueDate);
         return await this.db.insert(note);
     }
+
 
     async update(id, title, description, importance, dueDate, state) {
         if (state !== null) {
@@ -41,9 +44,11 @@ export class NoteStore {
         return await this.get(id);
     }
 
+
     async get(id) {
-        return await this.db.cfindOne({_id: id});
+        return await this.db.findOne({_id: id});
     }
+
 
     async all(filterBy, sortBy) {
 
@@ -76,7 +81,6 @@ export class NoteStore {
             return sortTerm;
         }
     }
-
 }
 
 export const noteStore = new NoteStore();

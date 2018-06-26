@@ -43,7 +43,7 @@
             </div>
         </header>
 
-        <main></main>
+        <main class="noteContainer"></main>
 
         <footer>
             <small>Number of Notes:</small>
@@ -53,10 +53,11 @@
     </div>
 </div>
 
-<script id="noteTemplateText" type="text/x-handlebars-template">
+<script id="note-template" type="text/x-handlebars-template">
 
     {{#each notes}}
-    <div class="noteContainer">
+    <div class="note">
+
         <div class="noteLine">
             <p class="col1">{{dueDate}}</p>
             <p class="col2">{{title}}</p>
@@ -65,8 +66,13 @@
 
         <div class="noteLine">
             <div class="col1">
-                <input type="checkbox" id="finished">
-                <label for="finished">Finished</label>
+                {{#ifStateOpen state}}
+                <input type="checkbox" id="finishedUnchecked" class="js-change" data-id="{{_id}}">
+                <label for="finishedUnchecked">Finished</label>
+                {{else}}
+                <input type="checkbox" id="finishedChecked" class="js-change" data-id="{{_id}}" checked="checked">
+                <label for="finishedChecked">Finished</label>
+                {{/ifStateOpen}}
             </div>
             <p class="col2 description">{{description}}</p>
             <div class="col3 editButtonContainer">
@@ -79,10 +85,11 @@
 </script>
 
 <script src="javascripts/lib/jquery-3.3.1.js"></script>
-<script src="javascripts/lib/handlebars-v4.0.11.js"></script>
 <script src="javascripts/utils/ajax-util.js"></script>
 <script src="javascripts/services/rest-client.js"></script>
 <script src="javascripts/controllers/notes-overview.js"></script>
+<script src="javascripts/lib/handlebars-v4.0.11.js"></script>
+<script src="javascripts/utils/handlebarsHelpers.js"></script>
 
 </body>
 </html>

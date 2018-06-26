@@ -15,7 +15,7 @@ export class NoteController {
     };
 
     async updateNote(req, res) {
-        res.json(await noteStore.update(req.params.id, req.body.title, req.body.description, req.body.importance, req.body.dueDate), req.body.state);
+        res.json(await noteStore.update(req.params.id, req.body.title, req.body.description, req.body.importance, req.body.dueDate, req.body.state));
     };
 
 }
