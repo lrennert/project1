@@ -5,33 +5,23 @@
     //------------
     // Initialize
     //------------
-
-    const cssFileExtension = ".css";
-    const storedStyle = localStorage.getItem("style");
-
-    if (storedStyle !== null) {
-        $("#currentCss").attr("href", 'stylesheets/' + storedStyle + cssFileExtension);
-        $("#styleSelect").val(storedStyle);
-    }
-
+    setCSS();
     const isEditMode = localStorage.hasOwnProperty("note");
-    let data;
 
 
     //------------
     // Handlebars
     //------------
+    let data;
     if (isEditMode) {
         const noteString = localStorage.getItem("note");
         data = JSON.parse(noteString);
         data.note.isNewNote = false;
-        console.log(data);
     } else {
         data = {};
         data.note = {};
         data.note.isNewNote = true;
         data.note.dueDate = new Date().toDateInputValue();
-        console.log(data);
     }
 
     const source = $("#edit-note-template").html();

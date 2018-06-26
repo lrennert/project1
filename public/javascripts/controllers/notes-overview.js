@@ -2,6 +2,8 @@
 
 ;$(function () {
 
+    setCSS();
+
     let filterBy = "open";
     let sortBy = null;
     let noteData = getNoteData(filterBy, sortBy);
@@ -10,22 +12,11 @@
     //------------------
     // Style Switcher
     //------------------
-    const storedStyle = localStorage.getItem("style");
-    const styleDropdown = $("#styleSelect");
-    if (storedStyle !== null) {
-        setStyle(storedStyle);
-        styleDropdown.val(storedStyle);
-    }
-
-    styleDropdown.change(function () {
+    $("#styleSelect").change(function () {
         const selectedStyle = $("#styleSelect").val();
-        setStyle(selectedStyle);
+        setLinkToFile(selectedStyle);
         localStorage.setItem("style", selectedStyle);
     });
-
-    function setStyle(style) {
-        $("#currentCss").attr("href", `stylesheets/${style}.css`);
-    }
 
 
     //---------------------------------
