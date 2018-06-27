@@ -82,6 +82,11 @@ export class NoteStore {
             return sortTerm;
         }
     }
+
+
+    async delete() {
+        return await this.db.remove({}, {multi: true});
+    }
 }
 
 export const noteStore = new NoteStore();

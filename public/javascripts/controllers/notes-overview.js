@@ -89,21 +89,24 @@
     //--------
     // Footer
     //--------
-    getNumberOfNotes(noteData).done(function (numberOfNotes) {
-        $("#numberOfNotes").html(numberOfNotes);
-    });
-
     const deleteAllButton = $("#deleteAllButton");
-    deleteAllButton.prop("disabled", getNumberOfNotes(noteData) === 0);
-    deleteAllButton.click(function () {
-        localStorage.clear();
+
+    deleteAllButton.click(function() {
+        if (confirm("Are you sure you want to delete all notes (open & finished)?")) {
+            window.services.restClient.deleteNotes().done(function (){
+                location.reload();
+            });
+        }
     });
 
     function refreshFooter() {
         getNumberOfNotes(noteData).done(function (numberOfNotes) {
             $("#numberOfNotes").html(numberOfNotes);
+            deleteAllButton.prop("disabled", numberOfNotes === 0);
         });
     }
+
+    refreshFooter();
 
 });
 

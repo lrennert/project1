@@ -11,17 +11,22 @@
     }
 
     function addNote(note) {
-        return ajaxUtil.ajax("POST", "/notes/", note);
+        return ajaxUtil.ajax("POST", "/notes", note);
     }
 
     function updateNote(id, note) {
         return ajaxUtil.ajax("PUT", `/notes/${id}`, note);
     }
 
+    function deleteNotes() {
+        return ajaxUtil.ajax("DELETE", "/notes", undefined);
+    }
+
     services.restClient = {
         getNotes: getNotes,
         getNote: getNoteById,
         addNote: addNote,
-        updateNote: updateNote
+        updateNote: updateNote,
+        deleteNotes: deleteNotes
     };
 }(window.services = window.services || { }, jQuery));

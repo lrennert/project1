@@ -18,6 +18,9 @@ export class NoteController {
         res.json(await noteStore.update(req.params.id, req.body.title, req.body.description, req.body.importance, req.body.dueDate, req.body.state));
     };
 
+    async deleteNotes(req, res) {
+        res.json(await noteStore.delete());
+    };
 }
 
 export const noteController = new NoteController();
