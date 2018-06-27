@@ -28,16 +28,17 @@ export class NoteStore {
         if (state !== null) {
             await this.db.update({_id: id}, {
                 $set: {
-                    "state": state
+                    state: state
                 }
             })
         } else {
             await this.db.update({_id: id}, {
                 $set: {
-                    "title": title,
-                    "description": description,
-                    "importance": importance,
-                    "dueDate": dueDate
+                    title: title,
+                    description: description,
+                    importance: importance,
+                    dueDate: dueDate,
+                    state: "open"
                 }
             })
         }

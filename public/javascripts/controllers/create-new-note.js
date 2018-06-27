@@ -18,10 +18,12 @@
         data = JSON.parse(noteString);
         data.note.isNewNote = false;
     } else {
-        data = {};
-        data.note = {};
-        data.note.isNewNote = true;
-        data.note.dueDate = new Date().toDateInputValue();
+        data = {
+            note: {
+                isNewNote: true,
+                dueDate: new Date().toDateInputValue()
+            }
+        };
     }
 
     const source = $("#edit-note-template").html();
@@ -37,14 +39,21 @@
 
         if ($("form")[0].checkValidity()) {
 
-            const newNote = {
-                "title": $("#title").val(),
-                "description": $("#description").val(),
-                "importance": $("#importance").val(),
-                "dueDate": $("#dueDate").val()
+            const note = {
+                title: $("#title").val(),
+                description: $("#description").val(),
+                importance: $("#importance").val(),
+                dueDate: $("#dueDate").val(),
+                state: null
             };
 
-            window.services.restClient.addNote(newNote);
+            if (isEditMode) {
+                window.services.restClient.updateNote(data.note._id, note);
+                localStorage.removeItem("note");
+            } else {
+                window.services.restClient.addNote(note);
+            }
+
             window.location.href = "notesOverview.html";
             return false;
         }

@@ -74,6 +74,7 @@
     overflow: auto;
     font-size: 14px;
     -webkit-margin-before: 0;
+    white-space: pre-wrap;
 }
 
 .empty {
@@ -118,6 +119,7 @@ p > input {
 p > textarea {
     flex: 0 1 80%;
     border-color: lightgrey;
+    min-height: 400px;
 }
 
 p > select {
