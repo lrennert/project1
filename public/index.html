@@ -9,6 +9,13 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/notes.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/colorsDefault.css" id="currentCss">
     <link rel="icon" href="favicon.ico">
+    <script src="javascripts/lib/jquery-3.3.1.js" defer></script>
+    <script src="javascripts/utils/ajax-util.js" defer></script>
+    <script src="javascripts/services/rest-client.js" defer></script>
+    <script src="javascripts/controllers/index.js" defer></script>
+    <script src="javascripts/lib/handlebars-v4.0.11.js" defer></script>
+    <script src="javascripts/utils/handlebars-helpers.js" defer></script>
+    <script src="javascripts/utils/shared.js" defer></script>
 </head>
 <body>
 <div class="noteApp">
@@ -22,8 +29,8 @@
 
         <header class="createNewNoteContainer">
             <div>
-                <a href="createNewNote.html"><img src="images/note.png" alt="Create new note" id="noteImage"></a>
-                <a href="createNewNote.html" class="newNoteLink">Create new note</a>
+                <a href="note.html"><img src="images/note.png" alt="Create new note" id="noteImage"></a>
+                <a href="note.html" class="newNoteLink">Create new note</a>
             </div>
             <label for="styleSelect"></label>
             <select id="styleSelect">
@@ -87,14 +94,6 @@
     {{/each}}
 
 </script>
-
-<script src="javascripts/lib/jquery-3.3.1.js"></script>
-<script src="javascripts/utils/ajax-util.js"></script>
-<script src="javascripts/services/rest-client.js"></script>
-<script src="javascripts/controllers/notes-overview.js"></script>
-<script src="javascripts/lib/handlebars-v4.0.11.js"></script>
-<script src="javascripts/utils/handlebars-helpers.js"></script>
-<script src="javascripts/utils/shared.js"></script>
 
 </body>
 </html>

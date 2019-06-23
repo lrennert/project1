@@ -54,7 +54,7 @@
                 window.services.restClient.addNote(note);
             }
 
-            window.location.href = "notesOverview.html";
+            window.location.href = "index.html";
             return false;
         }
     });
@@ -64,7 +64,7 @@
     // cancel
     //--------
     $("#cancelButton").click(function () {
-        window.location.href = "notesOverview.html";
+        window.location.href = "index.html";
         if (isEditMode) {
             localStorage.removeItem("note");
         }

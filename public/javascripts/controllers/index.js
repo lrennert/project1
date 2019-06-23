@@ -80,7 +80,7 @@
     $(".noteContainer").on("click", ".js-edit", function (event) {
         window.services.restClient.getNote($(event.currentTarget).data("id")).done(function (note) {
             localStorage.setItem("note", JSON.stringify({note: note}));
-            window.location.href = "createNewNote.html";
+            window.location.href = "note.html";
             return false;
         });
     });
