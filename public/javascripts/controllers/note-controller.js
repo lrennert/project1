@@ -6,69 +6,70 @@
     // Initialize
     //------------
     setCSS();
-    const isEditMode = localStorage.hasOwnProperty("note");
+    const isEditMode = Boolean(location.hash);
 
 
-    //------------
-    // Handlebars
-    //------------
-    let data;
+    let data = {};
     if (isEditMode) {
-        const noteString = localStorage.getItem("note");
-        data = JSON.parse(noteString);
-        data.note.isNewNote = false;
+        const noteId = location.hash.substring(1);
+        window.services.restClient.getNote(noteId).done(function (note) {
+            data.note = note;
+            prepareHTML(data);
+        });
     } else {
         data = {
             note: {
-                isNewNote: true,
                 dueDate: new Date().toDateInputValue()
             }
         };
+        prepareHTML(data);
     }
 
-    const source = $("#edit-note-template").html();
-    const template = Handlebars.compile(source);
-    const html = template(data);
-    $("form").html(html);
 
+    function prepareHTML(data) {
 
-    //--------
-    // submit
-    //--------
-    $("#submitButton").click(function () {
+        //------------
+        // Handlebars
+        //------------
+        const source = $("#edit-note-template").html();
+        const template = Handlebars.compile(source);
+        const html = template(data);
+        $("form").html(html);
 
-        if ($("form")[0].checkValidity()) {
+        //--------
+        // submit
+        //--------
+        $("#submitButton").click(function (event) {
+            event.preventDefault();
 
-            const note = {
-                title: $("#title").val(),
-                description: $("#description").val(),
-                importance: $("#importance").val(),
-                dueDate: $("#dueDate").val(),
-                state: null
-            };
+            if ($("form")[0].checkValidity()) {
 
-            if (isEditMode) {
-                window.services.restClient.updateNote(data.note._id, note);
-                localStorage.removeItem("note");
-            } else {
-                window.services.restClient.addNote(note);
+                const note = {
+                    title: $("#title").val(),
+                    description: $("#description").val(),
+                    importance: $("#importance").val(),
+                    dueDate: $("#dueDate").val(),
+                    state: null
+                };
+
+                if (isEditMode) {
+                    window.services.restClient.updateNote(data.note._id, note);
+                } else {
+                    window.services.restClient.addNote(note);
+                }
+
+                window.location.href = "index.html";
             }
+        });
 
+        //--------
+        // cancel
+        //--------
+        $("#cancelButton").click(function () {
             window.location.href = "index.html";
-            return false;
-        }
-    });
+        });
 
-
-    //--------
-    // cancel
-    //--------
-    $("#cancelButton").click(function () {
-        window.location.href = "index.html";
-        if (isEditMode) {
-            localStorage.removeItem("note");
-        }
-    });
+    }
 
 });
 
