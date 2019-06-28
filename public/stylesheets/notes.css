@@ -14,7 +14,7 @@
      flex-direction: column;
  }
 
-.createNewNoteContainer {
+.newNoteContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
