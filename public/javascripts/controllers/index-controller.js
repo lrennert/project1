@@ -78,11 +78,8 @@
     });
 
     notesContainer.on("click", ".js-edit", function (event) {
-        window.services.restClient.getNote($(event.currentTarget).data("id")).done(function (note) {
-            localStorage.setItem("note", JSON.stringify({note: note}));
-            window.location.href = "note.html";
-            return false;
-        });
+        let noteId = $(event.currentTarget).data("id");
+        window.location.href = `note.html#${noteId}`;
     });
 
 
