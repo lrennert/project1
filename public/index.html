@@ -12,10 +12,10 @@
     <script src="javascripts/lib/jquery-3.3.1.js" defer></script>
     <script src="javascripts/utils/ajax-util.js" defer></script>
     <script src="javascripts/services/rest-client.js" defer></script>
-    <script src="javascripts/controllers/index.js" defer></script>
-    <script src="javascripts/lib/handlebars-v4.0.11.js" defer></script>
-    <script src="javascripts/utils/handlebars-helpers.js" defer></script>
-    <script src="javascripts/utils/shared.js" defer></script>
+    <script src="javascripts/controllers/index-controller.js" defer></script>
+    <script src="javascripts/lib/handlebars-v4.0.11.js"></script>
+    <script src="javascripts/utils/handlebars-helpers.js"></script>
+    <script src="javascripts/utils/shared.js"></script>
 </head>
 <body>
 <div class="noteApp">
@@ -27,7 +27,7 @@
 
     <div class="container">
 
-        <header class="createNewNoteContainer">
+        <section class="newNoteContainer">
             <div>
                 <a href="note.html"><img src="images/note.png" alt="Create new note" id="noteImage"></a>
                 <a href="note.html" class="newNoteLink">Create new note</a>
@@ -37,9 +37,9 @@
                 <option value="colorsDefault" selected>Default-Style</option>
                 <option value="colorsBlackWhite">BlackWhite-Style</option>
             </select>
-        </header>
+        </section>
 
-        <header class="sortContainer">
+        <section class="sortContainer">
             <div>
                 <button type="submit" id="sortByDueDate">Sort By Due Date</button>
                 <button type="submit" id="sortByImportance">Sort By Importance</button>
@@ -48,9 +48,9 @@
                 <button type="submit" id="showOpenButton">Show Open</button>
                 <button type="submit" id="showAllButton">Show All</button>
             </div>
-        </header>
+        </section>
 
-        <main class="noteContainer"></main>
+        <main class="notesContainer"></main>
 
         <footer>
             <small>Number of Notes:</small>
@@ -75,10 +75,10 @@
             <div class="col1">
                 {{#ifStateOpen state}}
                 <input type="checkbox" id="finishedUnchecked" class="js-change" data-id="{{_id}}">
-                <label for="finishedUnchecked">Finished</label>
+                <label for="finishedUnchecked">Done</label>
                 {{else}}
                 <input type="checkbox" id="finishedChecked" class="js-change" data-id="{{_id}}" checked="checked">
-                <label for="finishedChecked">Finished</label>
+                <label for="finishedChecked">Done</label>
                 {{/ifStateOpen}}
             </div>
             {{#ifDescriptionExists description}}

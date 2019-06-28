@@ -9,9 +9,9 @@
     let noteData = getNoteData(filterBy, sortBy);
 
 
-    //------------------
+    //----------------
     // Style Switcher
-    //------------------
+    //----------------
     $("#styleSelect").change(function () {
         const selectedStyle = $("#styleSelect").val();
         setLinkToFile(selectedStyle);
@@ -54,30 +54,30 @@
     //------------
     const source = $("#note-template").html();
     const template = Handlebars.compile(source);
+    const notesContainer = $(".notesContainer");
     noteData.done(function (data) {
-        $(".noteContainer").html(template(data));
+        $(".notesContainer").html(template(data));
     });
 
     function doQuery() {
         noteData = getNoteData(filterBy, sortBy);
         noteData.done(function (data) {
-            $(".noteContainer").html(template(data));
+            $(".notesContainer").html(template(data));
         });
     }
 
-    $(".noteContainer").on("change", ".js-change", function (event) {
+    notesContainer.on("change", ".js-change", function (event) {
         window.services.restClient.getNote($(event.currentTarget).data("id")).done(function (note) {
             if ($(event.currentTarget).prop("checked")) {
                 note.state = "done";
-            }
-            else {
+            } else {
                 note.state = "open";
             }
             window.services.restClient.updateNote(note._id, note);
         });
     });
 
-    $(".noteContainer").on("click", ".js-edit", function (event) {
+    notesContainer.on("click", ".js-edit", function (event) {
         window.services.restClient.getNote($(event.currentTarget).data("id")).done(function (note) {
             localStorage.setItem("note", JSON.stringify({note: note}));
             window.location.href = "note.html";
@@ -91,9 +91,9 @@
     //--------
     const deleteAllButton = $("#deleteAllButton");
 
-    deleteAllButton.click(function() {
+    deleteAllButton.click(function () {
         if (confirm("Are you sure you want to delete all notes (open & finished)?")) {
-            window.services.restClient.deleteNotes().done(function (){
+            window.services.restClient.deleteNotes().done(function () {
                 location.reload();
             });
         }
