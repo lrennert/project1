@@ -73,13 +73,8 @@
 
         <div class="noteLine">
             <div class="col1">
-                {{#ifStateOpen state}}
-                <input type="checkbox" id="finishedUnchecked" class="js-change" data-id="{{_id}}">
-                <label for="finishedUnchecked">Done</label>
-                {{else}}
-                <input type="checkbox" id="finishedChecked" class="js-change" data-id="{{_id}}" checked="checked">
-                <label for="finishedChecked">Done</label>
-                {{/ifStateOpen}}
+                <input id="finished" type="checkbox" class="js-change" data-id="{{_id}}" {{#ifStateDone state}}checked{{/ifStateDone}}/>
+                <label for="finished">Done</label>
             </div>
             {{#ifDescriptionExists description}}
             <p class="col2 description">{{description}}</p>
