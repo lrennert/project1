@@ -14,11 +14,13 @@
         const noteId = location.hash.substring(1);
         window.services.restClient.getNote(noteId).done(function (note) {
             data.note = note;
+            data.note.isNewNote = false;
             prepareHTML(data);
         });
     } else {
         data = {
             note: {
+                isNewNote: true,
                 dueDate: new Date().toDateInputValue()
             }
         };

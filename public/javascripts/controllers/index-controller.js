@@ -14,14 +14,22 @@
     //----------------
     $("#styleSelect").change(function () {
         const selectedStyle = $("#styleSelect").val();
-        setLinkToFile(selectedStyle);
+        setHref(selectedStyle);
         localStorage.setItem("style", selectedStyle);
     });
 
+    //---------------
+    // New Note Link
+    //---------------
+    $("#createNewNote").click(function () {
+        hideBody();
+        window.location.href = "note.html";
+    });
 
-    //---------------------------------
-    // Sort Buttons and Filter Buttons
-    //---------------------------------
+
+    //-------------------------
+    // Sort and Filter Buttons
+    //-------------------------
     $("#sortByDueDate").click(function () {
         if ($("#numberOfNotes").text() > 1) {
             sortBy = "dueDate";
@@ -49,9 +57,9 @@
     });
 
 
-    //------------
-    // Handlebars
-    //------------
+    //-----------------
+    // Notes Container
+    //-----------------
     const source = $("#note-template").html();
     const template = Handlebars.compile(source);
     const notesContainer = $(".notesContainer");
@@ -78,6 +86,7 @@
     });
 
     notesContainer.on("click", ".js-edit", function (event) {
+        hideBody();
         let noteId = $(event.currentTarget).data("id");
         window.location.href = `note.html#${noteId}`;
     });

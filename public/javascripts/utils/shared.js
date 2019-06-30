@@ -2,18 +2,23 @@
 // Set CSS
 //---------
 
-function setCSS(){
+function setCSS() {
     const storedStyle = localStorage.getItem("style");
     const styleDropdown = $("#styleSelect");
 
     if (storedStyle !== null) {
-        setLinkToFile(storedStyle);
+        setHref(storedStyle);
         styleDropdown.val(storedStyle);
+    } else {
+        setHref("colorsDefault");
     }
 }
 
-function setLinkToFile(style) {
-    $("#currentCss").attr("href", `stylesheets/${style}.css`);
+function setHref(style) {
+    $("#colorStyleCss").attr("href", `stylesheets/${style}.css`);
+    $("body").removeAttr("hidden");
 }
 
-
+function hideBody() {
+    $("body").attr("hidden");
+}

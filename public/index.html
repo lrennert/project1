@@ -6,8 +6,8 @@
         Note Pro
     </title>
     <link href="stylesheets/lib/normalize.css" rel="stylesheet" type="text/css">
-    <link href="stylesheets/notes.css" rel="stylesheet" type="text/css">
-    <link href="stylesheets/colorsDefault.css" id="currentCss" rel="stylesheet" type="text/css">
+    <link href="stylesheets/notes.css" id="basicCss" rel="stylesheet" type="text/css">
+    <link href="" id="colorStyleCss" rel="stylesheet" type="text/css">
     <link href="favicon.ico" rel="icon">
     <script defer src="javascripts/lib/jquery-3.3.1.js"></script>
     <script defer src="javascripts/utils/ajax-util.js"></script>
@@ -29,7 +29,9 @@
 
         <section class="newNoteContainer">
             <div>
-                <a href="note.html"><img alt="Create new note" id="noteImage" src="images/note.png"></a>
+                <a href="" id="createNewNote">
+                    <img alt="Create new note" src="images/note.png">
+                </a>
                 <a class="newNoteLink" href="note.html">Create new note</a>
             </div>
             <label for="styleSelect"></label>
@@ -81,6 +83,7 @@
                 <button class="js-edit" data-id="{{_id}}" id="editButton" type="submit">Edit</button>
             </div>
         </div>
+
     </div>
     {{/each}}
 
