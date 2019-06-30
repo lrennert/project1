@@ -15,7 +15,7 @@
     $("#styleSelect").change(function () {
         const selectedStyle = $("#styleSelect").val();
         setHref(selectedStyle);
-        localStorage.setItem("style", selectedStyle);
+        window.services.valueStorage.setItem("style", selectedStyle);
     });
 
     //---------------
