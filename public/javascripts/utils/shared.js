@@ -3,7 +3,7 @@
 //---------
 
 function setCSS() {
-    const storedStyle = localStorage.getItem("style");
+    const storedStyle = window.services.valueStorage.getItem("style");
     const styleDropdown = $("#styleSelect");
 
     if (storedStyle !== null) {

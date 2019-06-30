@@ -6,12 +6,12 @@
     // Initialize
     //------------
     setCSS();
-    const isEditMode = Boolean(location.hash);
+    const isEditMode = Boolean(window.location.hash);
 
 
     let data = {};
     if (isEditMode) {
-        const noteId = location.hash.substring(1);
+        const noteId = window.location.hash.substring(1);
         window.services.restClient.getNote(noteId).done(function (note) {
             data.note = note;
             data.note.isNewNote = false;
