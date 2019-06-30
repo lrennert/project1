@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Note Pro</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/lib/normalize.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/notes.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/colorsDefault.css" id="currentCss">
-    <script src="javascripts/lib/jquery-3.3.1.js" defer></script>
-    <script src="javascripts/utils/ajax-util.js" defer></script>
-    <script src="javascripts/services/rest-client.js" defer></script>
-    <script src="javascripts/controllers/note-controller.js" defer></script>
+    <link href="stylesheets/lib/normalize.css" rel="stylesheet" type="text/css">
+    <link href="stylesheets/notes.css" id="basicCss" rel="stylesheet" type="text/css">
+    <link href="" id="colorStyleCss" rel="stylesheet" type="text/css">
+    <script defer src="javascripts/lib/jquery-3.3.1.js"></script>
+    <script defer src="javascripts/utils/ajax-util.js"></script>
+    <script defer src="javascripts/services/rest-client.js"></script>
+    <script defer src="javascripts/controllers/note-controller.js"></script>
     <script src="javascripts/lib/handlebars-v4.0.11.js"></script>
     <script src="javascripts/utils/handlebars-helpers.js"></script>
     <script src="javascripts/utils/shared.js"></script>
@@ -29,13 +29,13 @@
                 <label for="title">
                     <span>Title</span>
                 </label>
-                <input id="title" value="{{note.title}}" required>
+                <input id="title" required value="{{note.title}}">
             </p>
             <p>
                 <label for="description">
                     <span>Description</span>
                 </label>
-                <textarea rows="10" cols="0" id="description">{{note.description}}</textarea>
+                <textarea cols="0" id="description" rows="10">{{note.description}}</textarea>
             </p>
             <p>
                 <label for="importance">
@@ -43,7 +43,7 @@
                 </label>
                 <select id="importance">
                     {{#select note.importance}}
-                    <option value="1" selected>1</option>
+                    <option selected value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -55,13 +55,13 @@
                 <label for="dueDate">
                     <span>Due Date</span>
                 </label>
-                <input type="date" class="calendar" id="dueDate" value="{{note.dueDate}}">
+                <input class="calendar" id="dueDate" type="date" value="{{note.dueDate}}">
             </p>
         </section>
         <section class="submit">
             <p>
-                <button type="submit" id="submitButton" class="submitButton">Save</button>
-                <button type="reset" id="cancelButton">Cancel</button>
+                <button class="submitButton" id="submitButton" type="submit">Save</button>
+                <button id="cancelButton" type="reset">Cancel</button>
             </p>
         </section>
     </script>

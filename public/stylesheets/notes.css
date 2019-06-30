@@ -4,6 +4,7 @@
     width: 70%;
     margin: auto;
     padding: 20px;
+    background-color: transparent;
 }
 
 
@@ -21,7 +22,7 @@
     margin-bottom: 1.5rem;
 }
 
-.newNoteLink:hover {
+a:nth-of-type(2):hover {
     vertical-align: center;
     color: deeppink;
 }
@@ -81,7 +82,7 @@
     visibility: hidden;
 }
 
-#noteImage {
+img {
     width: 48px;
     height: 48px;
     float: left;
@@ -101,6 +102,7 @@ input:required:invalid {
 
 h1 {
     margin-bottom: 50px;
+    color: transparent;
 }
 
 p {
@@ -119,7 +121,7 @@ p > input {
 p > textarea {
     flex: 0 1 80%;
     border-color: lightgrey;
-    min-height: 400px;
+    min-height: 200px;
 }
 
 p > select {
