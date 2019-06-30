@@ -18,12 +18,12 @@
         window.services.valueStorage.setItem("style", selectedStyle);
     });
 
+
     //---------------
     // New Note Link
     //---------------
-    $("#createNewNote").click(function () {
+    $(".createNewNote").click(function () {
         hideBody();
-        window.location.href = "note.html";
     });
 
 

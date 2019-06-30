@@ -23,7 +23,6 @@
 }
 
 a:nth-of-type(2):hover {
-    vertical-align: center;
     color: deeppink;
 }
 
@@ -86,7 +85,7 @@ img {
     width: 48px;
     height: 48px;
     float: left;
-    margin-right: 10px
+    margin-right: 15px
 }
 
 footer {
