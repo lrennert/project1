@@ -65,12 +65,12 @@
 
 <script id="note-template" type="text/x-handlebars-template">
 
-    {{#each notes}}
+    {{#each this}}
     <div class="note">
 
         <div class="noteLine">
             <p class="col1">{{dueDate}}</p>
-            <p class="col2">{{title}}</p>
+            <p class="col2 title">{{title}}</p>
             <p class="col3"> Importance: {{importance}}</p>
         </div>
 

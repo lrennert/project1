@@ -4,9 +4,10 @@
 
     setCSS();
 
-    let filterBy = "open";
-    let sortBy = null;
-    let noteData = getNoteData(filterBy, sortBy);
+    const promise = window.services.restClient.getNotes(null, "dueDate");
+    const notesContainer = $(".notesContainer");
+    let notesArrayAll = [];
+    let notesArray = [];
 
 
     //----------------
@@ -31,28 +32,24 @@
     // Sort and Filter Buttons
     //-------------------------
     $("#sortByDueDate").click(function () {
-        if ($("#numberOfNotes").text() > 1) {
-            sortBy = "dueDate";
-            doQuery();
-        }
+        notesArray.sort((n1, n2) => new Date(n1.dueDate.toString()) - new Date(n2.dueDate.toString()));
+        updateHandlebars();
     });
 
     $("#sortByImportance").click(function () {
-        if ($("#numberOfNotes").text() > 1) {
-            sortBy = "importance";
-            doQuery();
-        }
+        notesArray.sort((n1, n2) => n2.importance - n1.importance);
+        updateHandlebars();
     });
 
     $("#showOpenButton").click(function () {
-        filterBy = "open";
-        doQuery();
+        notesArray = notesArray.filter(n => n.state === "open");
+        updateHandlebars();
         refreshFooter();
     });
 
     $("#showAllButton").click(function () {
-        filterBy = "all";
-        doQuery();
+        notesArray = [...notesArrayAll];
+        updateHandlebars();
         refreshFooter();
     });
 
@@ -62,16 +59,16 @@
     //-----------------
     const source = $("#note-template").html();
     const template = Handlebars.compile(source);
-    const notesContainer = $(".notesContainer");
-    noteData.done(function (data) {
-        $(".notesContainer").html(template(data));
+
+    promise.done(function (data) {
+        notesArrayAll = data.notes;
+        notesArray = [...notesArrayAll];
+        updateHandlebars(notesArray);
+        refreshFooter();
     });
 
-    function doQuery() {
-        noteData = getNoteData(filterBy, sortBy);
-        noteData.done(function (data) {
-            $(".notesContainer").html(template(data));
-        });
+    function updateHandlebars(){
+        notesContainer.html(template(notesArray));
     }
 
     notesContainer.on("change", ".js-change", function (event) {
@@ -82,8 +79,15 @@
                 note.state = "open";
             }
             window.services.restClient.updateNote(note._id, note);
+            updateNotesArray(notesArray, note);
+            updateNotesArray(notesArrayAll, note);
         });
     });
+
+    function updateNotesArray(arr, note) {
+        const index = arr.findIndex(n => n._id === note._id);
+        arr.splice(index, 1, note);
+    }
 
     notesContainer.on("click", ".js-edit", function (event) {
         hideBody();
@@ -106,25 +110,8 @@
     });
 
     function refreshFooter() {
-        getNumberOfNotes(noteData).done(function (numberOfNotes) {
-            $("#numberOfNotes").html(numberOfNotes);
-            deleteAllButton.prop("disabled", numberOfNotes === 0);
-        });
+        $("#numberOfNotes").html(notesArray.length);
+        deleteAllButton.prop("disabled", numberOfNotes === 0);
     }
 
-    refreshFooter();
-
 });
-
-
-function getNoteData(filterBy, sortBy) {
-    return window.services.restClient.getNotes(filterBy, sortBy);
-}
-
-function getNumberOfNotes(noteData) {
-    return noteData.then(function (data) {
-        return jQuery.isEmptyObject(data.notes) ? 0 : data.notes.length;
-    });
-}
-
-
