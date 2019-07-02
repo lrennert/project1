@@ -64,6 +64,7 @@
         notesArrayAll = data.notes;
         notesArray = [...notesArrayAll];
         updateHandlebars(notesArray);
+        refreshFooter();
     });
 
     function updateHandlebars(){
@@ -112,7 +113,5 @@
         $("#numberOfNotes").html(notesArray.length);
         deleteAllButton.prop("disabled", numberOfNotes === 0);
     }
-
-    refreshFooter();
 
 });
