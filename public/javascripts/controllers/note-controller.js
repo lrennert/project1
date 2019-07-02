@@ -7,35 +7,30 @@
     //------------
     setCSS();
     const isEditMode = Boolean(window.location.hash);
+    let note = {};
 
-
-    let data = {};
     if (isEditMode) {
-        const noteId = window.location.hash.substring(1);
-        window.services.restClient.getNote(noteId).done(function (note) {
-            data.note = note;
-            data.note.isNewNote = false;
-            prepareHTML(data);
+        const noteId = location.hash.substring(1);
+        window.services.restClient.getNote(noteId).done(function (data) {
+            note = data;
+            note.isNewNote = false;
+            prepareHTML(note);
         });
     } else {
-        data = {
-            note: {
-                isNewNote: true,
-                dueDate: new Date().toDateInputValue()
-            }
-        };
-        prepareHTML(data);
+        note.isNewNote = true;
+        note.dueDate = new Date().toDateInputValue();
+        prepareHTML();
     }
 
 
-    function prepareHTML(data) {
+    function prepareHTML() {
 
         //------------
         // Handlebars
         //------------
         const source = $("#edit-note-template").html();
         const template = Handlebars.compile(source);
-        const html = template(data);
+        const html = template(note);
         $("form").html(html);
 
         //--------
@@ -46,7 +41,7 @@
 
             if ($("form")[0].checkValidity()) {
 
-                const note = {
+                const noteUI = {
                     title: $("#title").val(),
                     description: $("#description").val(),
                     importance: $("#importance").val(),
@@ -55,9 +50,9 @@
                 };
 
                 if (isEditMode) {
-                    window.services.restClient.updateNote(data.note._id, note);
+                    window.services.restClient.updateNote(note._id, noteUI);
                 } else {
-                    window.services.restClient.addNote(note);
+                    window.services.restClient.addNote(noteUI);
                 }
 
                 window.location.href = "index.html";

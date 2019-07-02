@@ -19,7 +19,7 @@
 <form class="noteApp">
     <script id="edit-note-template" type="text/x-handlebars-template">
         <h1>
-            {{#if note.isNewNote}}
+            {{#if isNewNote}}
             New Note
             {{else}}
             Edit Note
@@ -30,20 +30,20 @@
                 <label for="title">
                     <span>Title</span>
                 </label>
-                <input id="title" required value="{{note.title}}">
+                <input id="title" required value="{{title}}">
             </p>
             <p>
                 <label for="description">
                     <span>Description</span>
                 </label>
-                <textarea cols="0" id="description" rows="10">{{note.description}}</textarea>
+                <textarea cols="0" id="description" rows="10">{{description}}</textarea>
             </p>
             <p>
                 <label for="importance">
                     <span>Importance</span>
                 </label>
                 <select id="importance">
-                    {{#select note.importance}}
+                    {{#select importance}}
                     <option selected value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -56,7 +56,7 @@
                 <label for="dueDate">
                     <span>Due Date</span>
                 </label>
-                <input class="calendar" id="dueDate" type="date" value="{{note.dueDate}}">
+                <input class="calendar" id="dueDate" type="date" value="{{dueDate}}">
             </p>
         </section>
         <section class="submit">
